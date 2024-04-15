@@ -1,0 +1,14 @@
+mdl_traverse='simulink_model_traverse';
+open_system(mdl_traverse);
+io_traverse(1) = linio('simulink_model_traverse/linear plant traverse/current command traverse',1,'input');
+io_traverse(2)=  linio('simulink_model_traverse/linear plant traverse/Integrator1',1,'output');
+tacho_traverse_model=linearize(mdl_traverse,io_traverse);
+sys_linio=[];
+setlinio(mdl_traverse,sys_linio);
+io_another_traverse(1) = linio('simulink_model_traverse/linear plant traverse/current command traverse',1,'input');
+io_another_traverse(2)= linio('simulink_model_traverse/linear plant traverse/Integrator3',1,'output');
+gyro_traverse_model=linearize(mdl_traverse,io_another_traverse);
+setlinio(mdl_traverse,sys_linio);
+io_another1_traverse(1) = linio('simulink_model_traverse/linear plant traverse/external disturbance',1,'input');
+io_another1_traverse(2)= linio('simulink_model_traverse/linear plant traverse/Integrator3',1,'output');
+Gd_traverse=linearize(mdl_traverse,io_another1_traverse);

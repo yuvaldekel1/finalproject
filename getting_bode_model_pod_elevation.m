@@ -1,0 +1,15 @@
+mdl_pod='pod_elevation_model';
+open_system(mdl_pod);
+io_traverse(1) = linio('pod_elevation_model/linear plant pod elevation /current input',1,'input');
+io_traverse(2)=  linio('pod_elevation_model/linear plant pod elevation /Integrator2',1,'output');
+%io_another_traverse(2)= linio('pod_elevation_model/linear plant pod elevation/Integrator2',1,'output');
+sys_linio=[];
+gyro_pod_model=linearize(mdl_pod,io_traverse);
+setlinio(mdl_pod,sys_linio);
+io_traverse(1) = linio('pod_elevation_model/linear plant pod elevation /current input',1,'input');
+io_traverse(2)=  linio('pod_elevation_model/linear plant pod elevation /Integrator',1,'output');
+tacho_pod_model=linearize(mdl_pod,io_traverse);
+setlinio(mdl_pod,sys_linio);
+%io_another1_traverse(1) = linio('pod_elevation_model/linear plant pod elevation /external disturbance',1,'input');
+%io_another1_traverse(2)= linio('pod_elevation_model/linear plant pod elevation /Integrator2',1,'output');
+%Gd_pod_elevation=linearize(mdl_pod,io_another1_traverse);

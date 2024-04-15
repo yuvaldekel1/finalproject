@@ -1,0 +1,14 @@
+mdl='simulink_elevation_model';
+open_system(mdl);
+io(1) = linio('simulink_elevation_model/linear_plant/input_current_plant',1,'input');
+io(2)=  linio('simulink_elevation_model/linear_plant/Integrator5',1,'output');
+tacho_elevation_model=linearize(mdl,io);
+sys_linio=[];
+setlinio(mdl,sys_linio);
+io_another(1) = linio('simulink_elevation_model/linear_plant/input_current_plant',1,'input');
+io_another(2)= linio('simulink_elevation_model/linear_plant/Integrator2',1,'output');
+gyro_elevation_model=linearize(mdl,io_another);
+setlinio(mdl,sys_linio);
+io_another1(1) = linio('simulink_elevation_model/linear_plant/external disturbance',1,'input');
+io_another1(2)= linio('simulink_elevation_model/linear_plant/Integrator2',1,'output');
+Gd=linearize(mdl,io_another1);
